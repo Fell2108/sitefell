@@ -1,1 +1,281 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guia Visual de Redes para Automação</title>
 
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:#f4f6f9;
+}
+
+header{
+    background:#0d6efd;
+    color:white;
+    text-align:center;
+    padding:20px;
+}
+
+nav{
+    display:flex;
+    justify-content:center;
+    background:#084298;
+}
+
+nav button{
+    padding:15px 25px;
+    border:none;
+    background:none;
+    color:white;
+    cursor:pointer;
+    font-size:16px;
+}
+
+nav button:hover{
+    background:#0d6efd;
+}
+
+.aba{
+    display:none;
+    padding:30px;
+}
+
+.ativa{
+    display:block;
+}
+
+.cards{
+    display:flex;
+    justify-content:center;
+    gap:20px;
+    flex-wrap:wrap;
+}
+
+.card{
+    width:220px;
+    background:white;
+    border-radius:10px;
+    padding:20px;
+    text-align:center;
+    cursor:pointer;
+    box-shadow:0 2px 8px rgba(0,0,0,.2);
+    transition:.3s;
+}
+
+.card:hover{
+    transform:scale(1.05);
+}
+
+#descricao{
+    margin-top:30px;
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    max-width:800px;
+    margin-left:auto;
+    margin-right:auto;
+    box-shadow:0 2px 8px rgba(0,0,0,.2);
+}
+
+.botoes{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+.botoes button{
+    padding:12px 25px;
+    margin:10px;
+    background:#0d6efd;
+    color:white;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+.botoes button:hover{
+    background:#084298;
+}
+
+#topologiaInfo{
+    max-width:800px;
+    margin:auto;
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 2px 8px rgba(0,0,0,.2);
+}
+
+ul{
+    margin-left:20px;
+}
+</style>
+
+</head>
+<body>
+
+<header>
+<h1>Guia Visual de Redes para Automação</h1>
+<p>Cabos Industriais e Topologias de Rede</p>
+</header>
+
+<nav>
+<button onclick="abrirAba('cabos')">Cabos Industriais</button>
+<button onclick="abrirAba('topologias')">Topologias</button>
+</nav>
+
+<!-- ABA 1 -->
+
+<section id="cabos" class="aba ativa">
+
+<h2 style="text-align:center;margin-bottom:30px;">Cabos Industriais</h2>
+
+<div class="cards">
+
+<div class="card" onclick="mostrarCabo('par')">
+<h3>Par Trançado</h3>
+<p>Clique para saber mais</p>
+</div>
+
+<div class="card" onclick="mostrarCabo('fibra')">
+<h3>Fibra Óptica</h3>
+<p>Clique para saber mais</p>
+</div>
+
+<div class="card" onclick="mostrarCabo('wireless')">
+<h3>Wireless</h3>
+<p>Clique para saber mais</p>
+</div>
+
+</div>
+
+<div id="descricao">
+Selecione um cabo para visualizar sua aplicação na fábrica.
+</div>
+
+</section>
+
+<!-- ABA 2 -->
+
+<section id="topologias" class="aba">
+
+<h2 style="text-align:center;margin-bottom:30px;">Topologias</h2>
+
+<div class="botoes">
+<button onclick="topologia('estrela')">Layout em Estrela</button>
+<button onclick="topologia('barramento')">Layout em Barramento</button>
+</div>
+
+<div id="topologiaInfo">
+Escolha uma topologia para visualizar suas características.
+</div>
+
+</section>
+
+<script>
+
+function abrirAba(nome){
+
+document.querySelectorAll(".aba").forEach(aba=>{
+aba.classList.remove("ativa");
+});
+
+document.getElementById(nome).classList.add("ativa");
+
+}
+
+function mostrarCabo(tipo){
+
+let texto="";
+
+if(tipo=="par"){
+
+texto="<h2>Par Trançado</h2><br><p>É muito usado para ligar computadores, CLPs, IHMs e switches dentro da fábrica. É ideal para curtas e médias distâncias.</p>";
+
+}
+
+if(tipo=="fibra"){
+
+texto="<h2>Fibra Óptica</h2><br><p>É usada para conectar setores distantes da fábrica. Possui alta velocidade e não sofre interferência elétrica.</p>";
+
+}
+
+if(tipo=="wireless"){
+
+texto="<h2>Wireless</h2><br><p>É utilizado para tablets, coletores de dados, sensores sem fio e dispositivos móveis quando não é possível passar cabos.</p>";
+
+}
+
+document.getElementById("descricao").innerHTML=texto;
+
+}
+
+function topologia(tipo){
+
+let texto="";
+
+if(tipo=="estrela"){
+
+texto=`
+<h2>Layout em Estrela</h2>
+
+<p>Todos os equipamentos são ligados a um switch central.</p>
+
+<h3>Vantagens</h3>
+
+<ul>
+<li>Fácil de localizar falhas.</li>
+<li>Boa organização.</li>
+<li>Expansão simples.</li>
+</ul>
+
+<h3>Desvantagens</h3>
+
+<ul>
+<li>Maior quantidade de cabos.</li>
+<li>Depende do funcionamento do switch central.</li>
+</ul>
+`;
+
+}
+
+if(tipo=="barramento"){
+
+texto=`
+<h2>Layout em Barramento</h2>
+
+<p>Todos os equipamentos compartilham o mesmo cabo de comunicação.</p>
+
+<h3>Vantagens</h3>
+
+<ul>
+<li>Menor custo de cabeamento.</li>
+<li>Instalação simples.</li>
+<li>Muito utilizado com RS-485 e Modbus.</li>
+</ul>
+
+<h3>Desvantagens</h3>
+
+<ul>
+<li>Uma falha no cabo pode afetar vários dispositivos.</li>
+<li>Exige terminação correta nas extremidades.</li>
+</ul>
+`;
+
+}
+
+document.getElementById("topologiaInfo").innerHTML=texto;
+
+}
+
+</script>
+
+</body>
+</html>
